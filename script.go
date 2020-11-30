@@ -11,7 +11,6 @@ import (
 )
 
 func get(endpoint string, cookie string) ([]byte, error) {
-
 	client := &http.Client{}
 
 	req, err := http.NewRequest("GET", endpoint, nil)
@@ -37,7 +36,7 @@ func get(endpoint string, cookie string) ([]byte, error) {
 	return input, nil
 }
 
-func post(endpoint string, cookie string, level string, answer string) error {
+func post(endpoint string, cookie string, level string, answer string) (string, error) {
 	client := &http.Client{}
 	form := url.Values{
 		"level":  {level},
@@ -47,7 +46,7 @@ func post(endpoint string, cookie string, level string, answer string) error {
 	req, err := http.NewRequest("POST", endpoint, strings.NewReader(form.Encode()))
 
 	if err != nil {
-		return fmt.Errorf("creating request: %v", err)
+		return "", fmt.Errorf("creating request: %v", err)
 	}
 
 	req.Header.Add("cookie", fmt.Sprintf("session=%s;", cookie))
@@ -56,18 +55,25 @@ func post(endpoint string, cookie string, level string, answer string) error {
 	resp, err := client.Do(req)
 
 	if err != nil {
-		return fmt.Errorf("performing request: %v", err)
+		return "", fmt.Errorf("performing request: %v", err)
 	}
 
 	bytes, err := ioutil.ReadAll(resp.Body)
 
 	if err != nil {
-		return fmt.Errorf("reading body: %v", err)
+		return "", fmt.Errorf("reading body: %v", err)
 	}
 
-	fmt.Println(string(bytes))
-
-	return nil
+	body := string(bytes)
+	var result string
+	if strings.Contains(body, "That's the right answer") {
+		result = "Correct, you nailed it :)"
+	} else if strings.Contains(body, "Did you already complete it") {
+		result = "Oops, you've already sent that before :("
+	} else if strings.Contains(body, "That's not the right answer") {
+		result = "Oops, that's incorrect :("
+	}
+	return result, nil
 }
 
 // args: input|answer cookie year day level answer
@@ -89,11 +95,12 @@ func main() {
 	case "answer":
 		level := os.Args[5]
 		answer := os.Args[6]
-		err = post(url, cookie, level, answer)
+		result, err := post(url, cookie, level, answer)
 		if err != nil {
 			fmt.Printf("Error: %s\n", err)
 			os.Exit(1)
 		}
+		fmt.Println(result)
 		return
 	case "input":
 		input, err = get(url, cookie)
