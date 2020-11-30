@@ -102,9 +102,9 @@ func main() {
 		}
 
 		fmt.Println(result)
-		return
 	case "input":
 		input, err = get(url, cookie)
+
 		if err != nil {
 			fmt.Printf("Error: %s\n", err)
 			os.Exit(1)
