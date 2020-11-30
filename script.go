@@ -12,7 +12,6 @@ import (
 
 func get(endpoint string, cookie string) ([]byte, error) {
 	client := &http.Client{}
-
 	req, err := http.NewRequest("GET", endpoint, nil)
 
 	if err != nil {
@@ -20,7 +19,6 @@ func get(endpoint string, cookie string) ([]byte, error) {
 	}
 
 	req.Header.Add("cookie", fmt.Sprintf("session=%s;", cookie))
-
 	resp, err := client.Do(req)
 
 	if err != nil {
@@ -51,7 +49,6 @@ func post(endpoint string, cookie string, level string, answer string) (string, 
 
 	req.Header.Add("cookie", fmt.Sprintf("session=%s;", cookie))
 	req.Header.Add("content-type", "application/x-www-form-urlencoded")
-
 	resp, err := client.Do(req)
 
 	if err != nil {
@@ -66,6 +63,7 @@ func post(endpoint string, cookie string, level string, answer string) (string, 
 
 	body := string(bytes)
 	var result string
+
 	if strings.Contains(body, "That's the right answer") {
 		result = "Correct, you nailed it :)"
 	} else if strings.Contains(body, "Did you already complete it") {
@@ -73,6 +71,7 @@ func post(endpoint string, cookie string, level string, answer string) (string, 
 	} else if strings.Contains(body, "That's not the right answer") {
 		result = "Oops, that's incorrect :("
 	}
+
 	return result, nil
 }
 
@@ -96,10 +95,12 @@ func main() {
 		level := os.Args[5]
 		answer := os.Args[6]
 		result, err := post(url, cookie, level, answer)
+
 		if err != nil {
 			fmt.Printf("Error: %s\n", err)
 			os.Exit(1)
 		}
+
 		fmt.Println(result)
 		return
 	case "input":
@@ -110,7 +111,6 @@ func main() {
 		}
 
 		path := fmt.Sprintf("%s/input/%s.in", year, day)
-
 		err = os.MkdirAll(filepath.Dir(path), 0755)
 
 		if err != nil {
