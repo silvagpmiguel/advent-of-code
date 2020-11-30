@@ -4,18 +4,20 @@ import (
 	"fmt"
 	"io/ioutil"
 	"net/http"
+	"net/url"
 	"os"
 	"path/filepath"
+	"strings"
 )
 
-func get(url string, cookie string) ([]byte, error) {
+func get(endpoint string, cookie string) ([]byte, error) {
 
 	client := &http.Client{}
 
-	req, err := http.NewRequest("GET", url, nil)
+	req, err := http.NewRequest("GET", endpoint, nil)
 
 	if err != nil {
-		return nil, fmt.Errorf("getting new request: %v", err)
+		return nil, fmt.Errorf("creating request: %v", err)
 	}
 
 	req.Header.Add("cookie", fmt.Sprintf("session=%s;", cookie))
@@ -35,24 +37,73 @@ func get(url string, cookie string) ([]byte, error) {
 	return input, nil
 }
 
-// args: year day cookie
-func main() {
-	if len(os.Args) != 4 {
-		fmt.Println("Error, wrong arguments.\nUsage: go run script.go \"year\" \"day\" \"cookie\" ")
-		return
+func post(endpoint string, cookie string, level string, answer string) error {
+	client := &http.Client{}
+	form := url.Values{
+		"level":  {level},
+		"answer": {answer},
 	}
-	year := os.Args[1]
-	day := os.Args[2]
-	cookie := os.Args[3]
 
-	url := fmt.Sprintf("https://adventofcode.com/%s/day/%s/input", year, day)
-	fmt.Println(url)
-
-	input, err := get(url, cookie)
+	req, err := http.NewRequest("POST", endpoint, strings.NewReader(form.Encode()))
 
 	if err != nil {
-		fmt.Printf("Error: %s\n", err)
-		os.Exit(255)
+		return fmt.Errorf("creating request: %v", err)
+	}
+
+	req.Header.Add("cookie", fmt.Sprintf("session=%s;", cookie))
+	req.Header.Add("content-type", "application/x-www-form-urlencoded")
+
+	resp, err := client.Do(req)
+
+	if err != nil {
+		return fmt.Errorf("performing request: %v", err)
+	}
+
+	bytes, err := ioutil.ReadAll(resp.Body)
+
+	if err != nil {
+		return fmt.Errorf("reading body: %v", err)
+	}
+
+	fmt.Println(string(bytes))
+
+	return nil
+}
+
+// args: input|answer cookie year day level answer
+func main() {
+	if len(os.Args) != 5 && len(os.Args) != 7 {
+		fmt.Println("Error, wrong arguments.\nUsage: go run script.go \"input|answer\" \"cookie\" \"year\" \"day\" [level] [answer]")
+		return
+	}
+
+	var err error
+	var input []byte
+	action := os.Args[1]
+	cookie := os.Args[2]
+	year := os.Args[3]
+	day := os.Args[4]
+	url := fmt.Sprintf("https://adventofcode.com/%s/day/%s/%s", year, day, action)
+
+	switch action {
+	case "answer":
+		level := os.Args[5]
+		answer := os.Args[6]
+		err = post(url, cookie, level, answer)
+		if err != nil {
+			fmt.Printf("Error: %s\n", err)
+			os.Exit(1)
+		}
+		return
+	case "input":
+		input, err = get(url, cookie)
+		if err != nil {
+			fmt.Printf("Error: %s\n", err)
+			os.Exit(1)
+		}
+	default:
+		fmt.Printf("Error: Wrong action.\nUsage: go run script.go \"input|answer\" \"cookie\" \"year\" \"day\" [level] [answer]")
+		os.Exit(1)
 	}
 
 	path := fmt.Sprintf("%s/input/%s.in", year, day)
@@ -68,7 +119,7 @@ func main() {
 
 	if err != nil {
 		fmt.Printf("Error: %s\n", err)
-		os.Exit(2)
+		os.Exit(1)
 	}
 
 	fmt.Println("Created AoC input file in " + path)
