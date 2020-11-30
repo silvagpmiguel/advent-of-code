@@ -108,26 +108,26 @@ func main() {
 			fmt.Printf("Error: %s\n", err)
 			os.Exit(1)
 		}
+
+		path := fmt.Sprintf("%s/input/%s.in", year, day)
+
+		err = os.MkdirAll(filepath.Dir(path), 0755)
+
+		if err != nil {
+			fmt.Printf("Error: %s\n", err)
+			os.Exit(1)
+		}
+
+		err = ioutil.WriteFile(path, input, 0644)
+
+		if err != nil {
+			fmt.Printf("Error: %s\n", err)
+			os.Exit(1)
+		}
+
+		fmt.Println("Created AoC input file in " + path)
 	default:
 		fmt.Printf("Error: Wrong action.\nUsage: go run script.go \"input|answer\" \"cookie\" \"year\" \"day\" [level] [answer]")
 		os.Exit(1)
 	}
-
-	path := fmt.Sprintf("%s/input/%s.in", year, day)
-
-	err = os.MkdirAll(filepath.Dir(path), 0755)
-
-	if err != nil {
-		fmt.Printf("Error: %s\n", err)
-		os.Exit(1)
-	}
-
-	err = ioutil.WriteFile(path, input, 0644)
-
-	if err != nil {
-		fmt.Printf("Error: %s\n", err)
-		os.Exit(1)
-	}
-
-	fmt.Println("Created AoC input file in " + path)
 }
