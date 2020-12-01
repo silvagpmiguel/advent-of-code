@@ -16,7 +16,7 @@ type Args struct {
 }
 
 func checkArgs(plen int, params []string) ([]string, error) {
-	if plen < 4 && plen > 6 {
+	if plen < 4 || plen > 6 {
 		return nil, fmt.Errorf("wrong arguments.\nUsage: ./main \"input|answer|solve\" \"year\" \"day\" [level] [answer]")
 	}
 	return params, nil
@@ -24,13 +24,13 @@ func checkArgs(plen int, params []string) ([]string, error) {
 
 // NewArgs returns the arguments/error main needs to run
 func NewArgs(plen int, params []string) (*Args, error) {
-	env, err := NewEnv(".env")
+	arr, err := checkArgs(plen, params)
 
 	if err != nil {
 		return nil, err
 	}
 
-	arr, err := checkArgs(plen, params)
+	env, err := NewEnv(".env")
 
 	if err != nil {
 		return nil, err
