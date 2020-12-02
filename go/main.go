@@ -12,7 +12,16 @@ import (
 
 var solverMap = map[string]map[string]solver.Solver{
 	"2020": map[string]solver.Solver{
-		"1": puzzle.NewDay1Solver(),
+		"1":  puzzle.NewDay1Solver(),
+		"2":  puzzle.NewDay2Solver(),
+		"3":  puzzle.NewDay3Solver(),
+		"4":  puzzle.NewDay4Solver(),
+		"5":  puzzle.NewDay5Solver(),
+		"6":  puzzle.NewDay6Solver(),
+		"7":  puzzle.NewDay7Solver(),
+		"8":  puzzle.NewDay8Solver(),
+		"9":  puzzle.NewDay9Solver(),
+		"10": puzzle.NewDay10Solver(),
 	},
 }
 
