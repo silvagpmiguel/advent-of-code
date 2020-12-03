@@ -36,7 +36,9 @@ func NewRunners(filepath string, solvers ...Solver) ([]Runner, error) {
 func Run(r *Runner) (*Solution, error) {
 	var s Solution
 
+	processing := time.Now()
 	err := r.Solver.ProcessInput(string(r.Input))
+	s.ProcessingTime = time.Since(processing)
 
 	if err != nil {
 		return nil, err
