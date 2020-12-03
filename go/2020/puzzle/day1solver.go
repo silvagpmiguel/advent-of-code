@@ -4,6 +4,7 @@ import (
 	"aoc/solver"
 	"fmt"
 	"strconv"
+	"strings"
 )
 
 // Day1 structure
@@ -18,7 +19,8 @@ func NewDay1Solver() solver.Solver {
 }
 
 // ProcessInput of day 1
-func (d *Day1) ProcessInput(lines []string) error {
+func (d *Day1) ProcessInput(content string) error {
+	lines := strings.Split(strings.TrimSpace(content), "\n")
 	for _, line := range lines {
 		i, err := strconv.Atoi(line)
 

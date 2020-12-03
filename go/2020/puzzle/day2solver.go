@@ -31,7 +31,8 @@ func NewDay2Solver() solver.Solver {
 }
 
 // ProcessInput of day 2
-func (d *Day2) ProcessInput(lines []string) error {
+func (d *Day2) ProcessInput(content string) error {
+	lines := strings.Split(strings.TrimSpace(content), "\n")
 	for _, line := range lines {
 		splitted := strings.Split(line, " ")
 		policy := strings.Split(splitted[0], "-")

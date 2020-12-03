@@ -16,7 +16,7 @@ func NewDay6Solver() solver.Solver {
 }
 
 // ProcessInput of day 6
-func (d *Day6) ProcessInput(lines []string) error {
+func (d *Day6) ProcessInput(content string) error {
 	return nil
 }
 

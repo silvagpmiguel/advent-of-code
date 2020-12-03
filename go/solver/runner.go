@@ -3,7 +3,6 @@ package solver
 import (
 	"fmt"
 	"io/ioutil"
-	"strings"
 	"time"
 )
 
@@ -37,7 +36,7 @@ func NewRunners(filepath string, solvers ...Solver) ([]Runner, error) {
 func Run(r *Runner) (*Solution, error) {
 	var s Solution
 
-	err := r.Solver.ProcessInput(strings.Split(strings.TrimSpace(string(r.Input)), "\n"))
+	err := r.Solver.ProcessInput(string(r.Input))
 
 	if err != nil {
 		return nil, err

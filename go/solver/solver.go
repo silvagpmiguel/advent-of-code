@@ -4,7 +4,7 @@ package solver
 type Solver interface {
 
 	// ProcessInput of a puzzle.
-	ProcessInput(lines []string) error
+	ProcessInput(content string) error
 
 	// Part1 is the solution for the part 1 of the puzzle
 	Part1() (string, error)
