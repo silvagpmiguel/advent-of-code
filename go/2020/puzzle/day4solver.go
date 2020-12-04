@@ -7,18 +7,8 @@ import (
 	"strings"
 )
 
-/*
-byr (Birth Year) - four digits; at least 1920 and at most 2002.
-iyr (Issue Year) - four digits; at least 2010 and at most 2020.
-eyr (Expiration Year) - four digits; at least 2020 and at most 2030.
-hgt (Height) - a number followed by either cm or in:
-If cm, the number must be at least 150 and at most 193.
-If in, the number must be at least 59 and at most 76.
-hcl (Hair Color) - a # followed by exactly six characters 0-9 or a-f.
-ecl (Eye Color) - exactly one of: amb blu brn gry grn hzl oth.
-pid (Passport ID) - a nine-digit number, including leading zeroes.
-cid (Country ID) - ignored, missing or not.
-*/
+var hclRe *regexp.Regexp
+var pidRe *regexp.Regexp
 
 // Passport struct
 type Passport struct {
@@ -31,6 +21,11 @@ type Passport struct {
 // Day4 structure
 type Day4 struct {
 	Passports []Passport
+}
+
+func init() {
+	pidRe = regexp.MustCompile(`^[0-9]{9}$`)
+	hclRe = regexp.MustCompile(`^#([0-9]|[a-f]){6}$`)
 }
 
 // NewDay4Solver constructs a new solver for day 4
@@ -98,54 +93,52 @@ func checkPassport(p Passport) bool {
 	fields := p.Fields
 	length := p.Length
 	containsCid := p.ContainsCid
-
-	byr, err := strconv.Atoi(fields["byr"])
-	if err != nil {
-		return false
-	}
-	byrCheck := (byr >= 1920 && byr <= 2002)
-
-	iyr, err := strconv.Atoi(fields["iyr"])
-	if err != nil {
-		return false
-	}
-	iyrCheck := (iyr >= 2010 && iyr <= 2020)
-
-	eyr, err := strconv.Atoi(fields["eyr"])
-	if err != nil {
-		return false
-	}
-	eyrCheck := (eyr >= 2020 && eyr <= 2030)
-
+	byr := fields["byr"]
+	iyr := fields["iyr"]
+	eyr := fields["eyr"]
+	hgt := fields["hgt"]
 	ecl := fields["ecl"]
+	hcl := fields["hcl"]
+	pid := fields["pid"]
+	notNum := false
+
+	byrInt, err := strconv.Atoi(byr)
+	notNum = notNum || err == nil
+	byrCheck := (byrInt >= 1920 && byrInt <= 2002)
+
+	iyrInt, err := strconv.Atoi(iyr)
+	notNum = notNum || err == nil
+	iyrCheck := (iyrInt >= 2010 && iyrInt <= 2020)
+
+	eyrInt, err := strconv.Atoi(eyr)
+	notNum = notNum || err == nil
+	eyrCheck := (eyrInt >= 2020 && eyrInt <= 2030)
+
 	eclTypes := map[string]bool{"amb": true, "blu": true, "brn": true, "gry": true, "grn": true, "hzl": true, "oth": true}
 	_, eclCheck := eclTypes[ecl]
 
-	hgt := fields["hgt"]
-	hgtLen := len(hgt)
-	if hgtLen < 4 {
-		return false
-	}
+	hgtCheck := checkGht(hgt)
+
+	return notNum && (length == 8 || length == 7 && !containsCid) && byrCheck && iyrCheck && eyrCheck && hgtCheck && hclRe.MatchString(hcl) && eclCheck && pidRe.MatchString(pid)
+}
+
+func checkGht(hgt string) bool {
 	var hgtType string
 	var aux string
+	hgtLen := len(hgt)
+
 	if hgtLen == 4 {
 		hgtType = hgt[2:4]
 		aux = hgt[:2]
-	} else {
+	} else if hgtLen == 5 {
 		hgtType = hgt[3:5]
 		aux = hgt[:3]
-	}
-	hgtNum, err := strconv.Atoi(aux)
-	if err != nil {
+	} else {
 		return false
 	}
-	hgtCheck := (hgtType == "in" && hgtNum >= 59 && hgtNum <= 76) || (hgtType == "cm" && hgtNum >= 150 && hgtNum <= 193)
 
-	hcl := fields["hcl"]
-	hclRe := regexp.MustCompile(`^#([0-9]|[a-f]){6}$`)
+	hgtNum, err := strconv.Atoi(aux)
+	isNum := err == nil
 
-	pid := fields["pid"]
-	pidRe := regexp.MustCompile(`^[0-9]{9}$`)
-
-	return (length == 8 || length == 7 && !containsCid) && byrCheck && iyrCheck && eyrCheck && hgtCheck && hclRe.MatchString(hcl) && eclCheck && pidRe.MatchString(pid)
+	return isNum && (hgtType == "in" && hgtNum >= 59 && hgtNum <= 76) || (hgtType == "cm" && hgtNum >= 150 && hgtNum <= 193)
 }
