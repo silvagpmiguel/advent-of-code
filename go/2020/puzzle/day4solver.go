@@ -100,18 +100,18 @@ func checkPassport(p Passport) bool {
 	ecl := fields["ecl"]
 	hcl := fields["hcl"]
 	pid := fields["pid"]
-	notNum := false
+	isNum := false
 
 	byrInt, err := strconv.Atoi(byr)
-	notNum = notNum || err == nil
+	isNum = isNum || err == nil
 	byrCheck := (byrInt >= 1920 && byrInt <= 2002)
 
 	iyrInt, err := strconv.Atoi(iyr)
-	notNum = notNum || err == nil
+	isNum = isNum || err == nil
 	iyrCheck := (iyrInt >= 2010 && iyrInt <= 2020)
 
 	eyrInt, err := strconv.Atoi(eyr)
-	notNum = notNum || err == nil
+	isNum = isNum || err == nil
 	eyrCheck := (eyrInt >= 2020 && eyrInt <= 2030)
 
 	eclTypes := map[string]bool{"amb": true, "blu": true, "brn": true, "gry": true, "grn": true, "hzl": true, "oth": true}
@@ -119,7 +119,7 @@ func checkPassport(p Passport) bool {
 
 	hgtCheck := checkGht(hgt)
 
-	return notNum && (length == 8 || length == 7 && !containsCid) && byrCheck && iyrCheck && eyrCheck && hgtCheck && hclRe.MatchString(hcl) && eclCheck && pidRe.MatchString(pid)
+	return isNum && (length == 8 || length == 7 && !containsCid) && byrCheck && iyrCheck && eyrCheck && hgtCheck && hclRe.MatchString(hcl) && eclCheck && pidRe.MatchString(pid)
 }
 
 func checkGht(hgt string) bool {
