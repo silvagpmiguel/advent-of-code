@@ -101,10 +101,10 @@ func computeSeat(rep string, maxRow float64, maxCol float64, rowChars int, colCh
 		To:   maxCol,
 	}
 	for i = 0; i < rowChars; i++ {
-		rowRange = computeHalf(rowRange, isLower[rep[i]])
+		computeHalf(rowRange, isLower[rep[i]])
 	}
 	for j := i; j < rowChars+colChars; j++ {
-		colRange = computeHalf(colRange, isLower[rep[j]])
+		computeHalf(colRange, isLower[rep[j]])
 	}
 
 	row := int(rowRange.From)
@@ -119,17 +119,12 @@ func computeSeat(rep string, maxRow float64, maxCol float64, rowChars int, colCh
 	}
 }
 
-func computeHalf(r *Range, isLower bool) *Range {
-	var from float64
-	var to float64
+func computeHalf(r *Range, isLower bool) {
 	if isLower {
-		from = r.From
-		to = math.Floor((from + r.To) / 2)
+		r.To = math.Floor((r.From + r.To) / 2)
 	} else {
-		to = r.To
-		from = math.Ceil((to + r.From) / 2)
+		r.From = math.Ceil((r.To + r.From) / 2)
 	}
-	return &Range{From: from, To: to}
 }
 
 func computeSeatID(row int, col int) int {
