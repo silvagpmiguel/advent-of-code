@@ -39,7 +39,7 @@ func NewDay5Solver() solver.Solver {
 func (d *Day5) ProcessInput(content string) error {
 	lines := strings.Split(strings.TrimSpace(content), "\n")
 	for _, line := range lines {
-		seat := computeSeat(line, d.NumRows-1, d.NumCols-1, 7, 3)
+		seat := computeSeat(line, float64(d.NumRows-1), float64(d.NumCols-1), 7, 3)
 		id := seat.ID
 		row := seat.Row
 		d.Map[row] = append(d.Map[row], seat)
@@ -82,7 +82,7 @@ func findMySeat(seats []Seat) int {
 	return 0
 }
 
-func computeSeat(rep string, maxRow int, maxCol int, rowChars int, colChars int) Seat {
+func computeSeat(rep string, maxRow float64, maxCol float64, rowChars int, colChars int) Seat {
 	var i int
 	isLower := map[byte]bool{
 		'F': true,
@@ -92,11 +92,11 @@ func computeSeat(rep string, maxRow int, maxCol int, rowChars int, colChars int)
 	}
 	rowRange := &Range{
 		From: 0,
-		To:   127,
+		To:   maxRow,
 	}
 	colRange := &Range{
 		From: 0,
-		To:   7,
+		To:   maxCol,
 	}
 	for i = 0; i < rowChars; i++ {
 		rowRange = computeHalf(rowRange, isLower[rep[i]])
