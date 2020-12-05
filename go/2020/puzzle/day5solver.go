@@ -24,22 +24,24 @@ type Seat struct {
 
 // Day5 structure
 type Day5 struct {
-	Map     map[int][]Seat // Map: Row -> Seat List
-	Biggest int
-	NumRows int
-	NumCols int
+	Map      map[int][]Seat // Map: Row -> Seat List
+	Biggest  int
+	NumRows  int
+	NumCols  int
+	RowChars int
+	ColChars int
 }
 
 // NewDay5Solver constructs a new solver for day 5
 func NewDay5Solver() solver.Solver {
-	return &Day5{Map: make(map[int][]Seat), Biggest: 0, NumRows: 128, NumCols: 8}
+	return &Day5{Map: make(map[int][]Seat), Biggest: 0, NumRows: 128, NumCols: 8, RowChars: 7, ColChars: 3}
 }
 
 // ProcessInput of day 5
 func (d *Day5) ProcessInput(content string) error {
 	lines := strings.Split(strings.TrimSpace(content), "\n")
 	for _, line := range lines {
-		seat := computeSeat(line, float64(d.NumRows-1), float64(d.NumCols-1), 7, 3)
+		seat := computeSeat(line, float64(d.NumRows-1), float64(d.NumCols-1), d.RowChars, d.ColChars)
 		id := seat.ID
 		row := seat.Row
 		d.Map[row] = append(d.Map[row], seat)
@@ -117,10 +119,6 @@ func computeSeat(rep string, maxRow float64, maxCol float64, rowChars int, colCh
 	}
 }
 
-func computeSeatID(row int, col int) int {
-	return row*8 + col
-}
-
 func computeHalf(r *Range, isLower bool) *Range {
 	var from float64
 	var to float64
@@ -132,4 +130,8 @@ func computeHalf(r *Range, isLower bool) *Range {
 		from = math.Ceil((to + r.From) / 2)
 	}
 	return &Range{From: from, To: to}
+}
+
+func computeSeatID(row int, col int) int {
+	return row*8 + col
 }
