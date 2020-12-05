@@ -24,7 +24,7 @@ type Seat struct {
 
 // Day5 structure
 type Day5 struct {
-	Map     map[int][]Seat // Map: Row -> Seat
+	Map     map[int][]Seat // Map: Row -> Seat List
 	Biggest int
 	NumRows int
 	NumCols int
