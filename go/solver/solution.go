@@ -19,7 +19,7 @@ type Solution struct {
 func (s *Solution) PrintSolution(w io.Writer) error {
 	writer := NewErrorTolerantWriter(w)
 
-	fmt.Fprintf(w, "Processing: %v\n", s.ProcessingTime)
+	fmt.Fprintf(w, "Input Process: %v\n", s.ProcessingTime)
 
 	fmt.Fprintf(w, "Part 1: %s (in %v)\n", s.Part1, s.Part1Time)
 
