@@ -30,7 +30,7 @@ func NewArgs(plen int, params []string) (*Args, error) {
 		return nil, err
 	}
 
-	env, err := NewEnv(".env")
+	env, err := NewEnv("../.env")
 
 	if err != nil {
 		return nil, err

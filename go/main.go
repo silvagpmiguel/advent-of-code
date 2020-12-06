@@ -113,7 +113,7 @@ func main() {
 
 		fmt.Println("Created AoC input file in " + args.Filepath)
 	default:
-		fmt.Println("Error: Wrong action.\nUsage: go run script.go \"input|answer|solve\" \"year\" \"day\" [level] [answer]")
+		fmt.Println("Error: Wrong action.\nUsage: ./aoc \"input|answer|solve\" \"year\" \"day\" [level] [answer]")
 		os.Exit(1)
 	}
 
