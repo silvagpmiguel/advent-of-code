@@ -21,6 +21,7 @@ func NewDay1Solver() solver.Solver {
 // ProcessInput of day 1
 func (d *Day1) ProcessInput(content string) error {
 	lines := strings.Split(strings.TrimSpace(content), "\n")
+
 	for _, line := range lines {
 		i, err := strconv.Atoi(line)
 
@@ -30,6 +31,7 @@ func (d *Day1) ProcessInput(content string) error {
 
 		d.Entries = append(d.Entries, i)
 	}
+
 	return nil
 }
 

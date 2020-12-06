@@ -45,13 +45,11 @@ func (d *Day4) ProcessInput(content string) error {
 			passport = Passport{Fields: make(map[string]string), ContainsCid: false, Length: 0}
 			continue
 		}
-
 		fields := strings.Split(line, " ")
 		for _, field := range fields {
 			splitted := strings.Split(field, ":")
 			key := splitted[0]
 			val := splitted[1]
-
 			passport.Fields[key] = val
 
 			if key == "cid" {
@@ -68,6 +66,7 @@ func (d *Day4) ProcessInput(content string) error {
 // Part1 of day 4
 func (d *Day4) Part1() (string, error) {
 	valid := 0
+
 	for _, passport := range d.Passports {
 		len := passport.Length
 		if len == 8 || len == 7 && !passport.ContainsCid {
@@ -81,11 +80,13 @@ func (d *Day4) Part1() (string, error) {
 // Part2 of day 4
 func (d *Day4) Part2() (string, error) {
 	valid := 0
+
 	for _, passport := range d.Passports {
 		if passport.Valid {
 			valid++
 		}
 	}
+
 	return strconv.Itoa(valid), nil
 }
 

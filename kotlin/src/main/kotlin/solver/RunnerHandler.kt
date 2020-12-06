@@ -25,8 +25,8 @@ class RunnerHandler(val filepath: String, val solvers: List<Solver>, val runners
 
     // Run a puzzle runner
     fun run() {
-        var part1: String?
-        var part2: String?
+       var part1: String?
+        var part2: String? 
 
         runners.forEach {
             val elapsedTimeProcess = measureNanoTime {
