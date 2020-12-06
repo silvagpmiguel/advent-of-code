@@ -1,4 +1,4 @@
-package puzzle
+package puzzle2020
 
 import (
 	"aoc/solver"

@@ -18,7 +18,7 @@ class ArgsHandler(val argc: Int, val args: Array<String>){
             action = args[0],
             year = args[1],
             day = args[2],
-            filepath = "src/main/kotlin/year${args[1]}/input/${args[2]}.in",
+            filepath = "../input/${args[1]}/${args[2]}.in",
         )
 
         if (argc == 4) {

@@ -1,7 +1,7 @@
 package main
 
 import (
-	"aoc/2020/puzzle"
+	"aoc/puzzle2020"
 	"aoc/service"
 	"aoc/solver"
 	"fmt"
@@ -12,16 +12,16 @@ import (
 
 var solverMap = map[string]map[string]solver.Solver{
 	"2020": map[string]solver.Solver{
-		"1":  puzzle.NewDay1Solver(),
-		"2":  puzzle.NewDay2Solver(),
-		"3":  puzzle.NewDay3Solver(),
-		"4":  puzzle.NewDay4Solver(),
-		"5":  puzzle.NewDay5Solver(),
-		"6":  puzzle.NewDay6Solver(),
-		"7":  puzzle.NewDay7Solver(),
-		"8":  puzzle.NewDay8Solver(),
-		"9":  puzzle.NewDay9Solver(),
-		"10": puzzle.NewDay10Solver(),
+		"1":  puzzle2020.NewDay1Solver(),
+		"2":  puzzle2020.NewDay2Solver(),
+		"3":  puzzle2020.NewDay3Solver(),
+		"4":  puzzle2020.NewDay4Solver(),
+		"5":  puzzle2020.NewDay5Solver(),
+		"6":  puzzle2020.NewDay6Solver(),
+		"7":  puzzle2020.NewDay7Solver(),
+		"8":  puzzle2020.NewDay8Solver(),
+		"9":  puzzle2020.NewDay9Solver(),
+		"10": puzzle2020.NewDay10Solver(),
 	},
 }
 

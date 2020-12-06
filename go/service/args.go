@@ -47,7 +47,7 @@ func NewArgs(plen int, params []string) (*Args, error) {
 		Action:   arr[1],
 		Year:     arr[2],
 		Day:      arr[3],
-		Filepath: fmt.Sprintf("%s/input/%s.in", arr[2], arr[3]),
+		Filepath: fmt.Sprintf("../input/%s/%s.in", arr[2], arr[3]),
 	}
 
 	if plen == 5 {

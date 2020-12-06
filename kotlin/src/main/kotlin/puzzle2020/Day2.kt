@@ -1,8 +1,8 @@
-package year2020.puzzle
+package puzzle2020
 
 import solver.Solver
 
-class Day7() : Solver {
+class Day2() : Solver {
     override fun processInput(content: String){
         TODO("Not yet implemented")
     }

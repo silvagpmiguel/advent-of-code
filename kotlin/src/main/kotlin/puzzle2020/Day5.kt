@@ -1,4 +1,4 @@
-package year2020.puzzle
+package puzzle2020
 
 import solver.Solver
 

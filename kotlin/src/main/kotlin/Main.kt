@@ -1,7 +1,7 @@
 import service.*
 import solver.RunnerHandler
 import solver.Solver
-import year2020.puzzle.*
+import puzzle2020.*
 import java.io.File
 
 val solverMap = mapOf(
