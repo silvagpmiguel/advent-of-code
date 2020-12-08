@@ -128,6 +128,7 @@ func bruteForce(d *Day8, ind int) {
 	stacktrace := d.Stacktrace
 	toSwap := d.Swap[ind]
 	toSwapIP := toSwap.IP
+
 	if insts[toSwapIP].Key == "nop" {
 		insts[toSwapIP].Key = "jmp"
 	} else {
