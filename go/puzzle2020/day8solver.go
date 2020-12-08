@@ -48,10 +48,9 @@ func (d *Day8) ProcessInput(content string) error {
 		}
 		d.Instructions = append(d.Instructions, inst)
 
-		if key == "nop" || key == "jmp" {
+		if (key == "nop" && val != 0) || key == "jmp" {
 			d.Swap = append(d.Instructions, inst)
 		}
-
 	}
 	return nil
 }
@@ -157,13 +156,4 @@ func bruteForce(d *Day8, ind int) {
 	}
 
 	d.IsFixed = true
-}
-
-func contains(ip int, ips []int) bool {
-	for _, val := range ips {
-		if val == ip {
-			return true
-		}
-	}
-	return false
 }
