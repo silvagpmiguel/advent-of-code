@@ -45,7 +45,7 @@ func (d *Day9) Part1() (string, error) {
 	for ind, num := range d.XMAS.Numbers {
 		before = append(before, num)
 		if (ind + 1) > d.XMAS.Preamble {
-			if !checkPreamble(num, before[ind-d.XMAS.Preamble:]) {
+			if !findWrong(num, before[ind-d.XMAS.Preamble:]) {
 				wrong = num
 				break
 			}
@@ -63,7 +63,7 @@ func (d *Day9) Part2() (string, error) {
 	for ind, num := range d.XMAS.Numbers {
 		before = append(before, num)
 		if (ind + 1) > d.XMAS.Preamble {
-			if !checkPreamble(num, before[ind-d.XMAS.Preamble:]) {
+			if !findWrong(num, before[ind-d.XMAS.Preamble:]) {
 				wrong = num
 				break
 			}
@@ -80,7 +80,7 @@ func (d *Day9) Part2() (string, error) {
 	return strconv.Itoa(smallest + largest), nil
 }
 
-func checkPreamble(num int, val []int) bool {
+func findWrong(num int, val []int) bool {
 	for i := 0; i < len(val)-1; i++ {
 		for j := i + 1; j < len(val); j++ {
 			if val[i]+val[j] == num {
