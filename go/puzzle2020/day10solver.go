@@ -2,9 +2,10 @@ package puzzle2020
 
 import (
 	"aoc/solver"
-	"aoc/utils"
 	"strconv"
 	"strings"
+
+	"github.com/silvagpmiguel/go-utils/utils"
 )
 
 // Chain of adaptors
@@ -20,13 +21,12 @@ type Day10 struct {
 
 // NewDay10Solver constructs a new solver for day 10
 func NewDay10Solver() solver.Solver {
-	return &Day10{Chain{Adapters: utils.NewPQueue(true), Exists: make(map[int]int)}}
+	return &Day10{Chain{Adapters: utils.NewIntPQueue(true), Exists: make(map[int]int)}}
 }
 
 // ProcessInput of day 10
 func (d *Day10) ProcessInput(content string) error {
 	lines := strings.Split(strings.TrimSpace(content), "\n")
-	d.Chain.Adapters = utils.NewPQueue(true)
 	for _, line := range lines {
 		adapter, err := strconv.Atoi(line)
 
@@ -34,7 +34,7 @@ func (d *Day10) ProcessInput(content string) error {
 			return err
 		}
 
-		d.Chain.Adapters = d.Chain.Adapters.Push(adapter)
+		d.Chain.Adapters = d.Chain.Adapters.Enqueue(adapter)
 	}
 
 	return nil
@@ -82,7 +82,8 @@ func (d *Day10) sort() []int {
 	sorted := []int{}
 
 	for ind := 0; !d.Chain.Adapters.IsEmpty(); ind++ {
-		jolt, err := d.Chain.Adapters.Pop()
+		interf, err := d.Chain.Adapters.Dequeue()
+		jolt := interf.(int)
 
 		if err != nil {
 			return nil
@@ -96,11 +97,11 @@ func (d *Day10) sort() []int {
 }
 
 func buildDiffs(p *utils.PQueue, diff1 int, diff2 int) (int, int) {
-	firstDiff, secondDiff, first, second := 0, 0, 0, 0
-	var err error
+	firstDiff, secondDiff, first := 0, 0, 0
 
 	for i := 1; !p.IsEmpty(); i++ {
-		second, err = p.Pop()
+		interf, err := p.Dequeue()
+		second := interf.(int)
 
 		if err != nil {
 			return 0, 0

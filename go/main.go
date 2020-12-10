@@ -22,6 +22,11 @@ var solverMap = map[string]map[string]solver.Solver{
 		"8":  puzzle2020.NewDay8Solver(),
 		"9":  puzzle2020.NewDay9Solver(),
 		"10": puzzle2020.NewDay10Solver(),
+		"11": puzzle2020.NewDay11Solver(),
+		"12": puzzle2020.NewDay12Solver(),
+		"13": puzzle2020.NewDay13Solver(),
+		"14": puzzle2020.NewDay14Solver(),
+		"15": puzzle2020.NewDay15Solver(),
 	},
 }
 
