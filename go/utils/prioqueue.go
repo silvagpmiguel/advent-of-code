@@ -67,6 +67,15 @@ func (q *PQueue) Pop() (int, error) {
 	return toRemove, nil
 }
 
+// Clone queue
+func (q *PQueue) Clone() *PQueue {
+	return &PQueue{
+		values: q.values,
+		length: q.length,
+		isMin:  q.isMin,
+	}
+}
+
 // String method
 func (q *PQueue) String() string {
 	qType := "Max Priority Queue"
@@ -104,7 +113,7 @@ func (q *PQueue) bubbleDown(start int, end int) {
 }
 
 func (q *PQueue) bubbleUp(actual int) {
-	for i := actual; i > 0; {
+	for i := actual; i >= 0; {
 		parent := q.parent(i)
 
 		if !q.needSwap(i, parent) {
