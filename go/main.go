@@ -6,8 +6,10 @@ import (
 	"aoc/solver"
 	"fmt"
 	"io/ioutil"
+	"log"
 	"os"
 	"path/filepath"
+	"runtime/pprof"
 )
 
 var solverMap = map[string]map[string]solver.Solver{
@@ -59,6 +61,15 @@ func main() {
 
 	switch args.Action {
 	case "solve":
+		f, err := os.Create("cpu.prof")
+		if err != nil {
+			log.Fatal("could not create CPU profile: ", err)
+		}
+		defer f.Close()
+		if err := pprof.StartCPUProfile(f); err != nil {
+			log.Fatal("could not start CPU profile: ", err)
+		}
+		defer pprof.StopCPUProfile()
 		solv, err := getSolver(args.Year, args.Day)
 
 		if err != nil {
