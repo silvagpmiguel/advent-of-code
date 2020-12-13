@@ -95,7 +95,6 @@ func (d *Day12) Part2() (string, error) {
 	for _, inst := range d.NavInstructions {
 		d.refreshCoordinates2(&inst)
 	}
-	fmt.Printf("%v\n", d)
 	return strconv.Itoa(d.computeManhattanDistance()), nil
 }
 
