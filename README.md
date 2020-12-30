@@ -4,6 +4,9 @@ My take for [Advent of Code](https://adventofcode.com/)
 
 ## Golang
 
+[![Go Report Card](https://goreportcard.com/badge/github.com/silvagpmiguel/advent-of-code/go)](https://goreportcard.com/report/github.com/silvagpmiguel/advent-of-code/go)
+[![GoDoc](https://godoc.org/github.com/silvagpmiguel/advent-of-code/go?status.svg)](https://godoc.org/github.com/silvagpmiguel/advent-of-code/go)
+
 ### Move to Project
 ```
 cd go
