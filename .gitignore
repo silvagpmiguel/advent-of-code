@@ -8,6 +8,7 @@ aoc
 target/
 .idea/
 *.prof
+node_modules/
 
 # Test binary, built with `go test -c`
 *.test

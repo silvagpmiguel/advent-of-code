@@ -7,27 +7,19 @@ My take for [Advent of Code](https://adventofcode.com/)
 [![Go Report Card](https://goreportcard.com/badge/github.com/silvagpmiguel/advent-of-code/go)](https://goreportcard.com/report/github.com/silvagpmiguel/advent-of-code/go)
 [![GoDoc](https://godoc.org/github.com/silvagpmiguel/advent-of-code/go?status.svg)](https://godoc.org/github.com/silvagpmiguel/advent-of-code/go)
 
-### Move to Project
-```
-cd go
-``` 
-
 ### Build Project
+
 ```
 go build
 ```
 
 ### Run Program
+
 ```
 ./aoc "input|answer|solve" "year" "day" [level] [answer]
 ```
 
 ## Kotlin
-
-### Move to Project
-```
-cd kotlin
-``` 
 
 ### Build Project
 ```
@@ -37,6 +29,13 @@ cd kotlin
 ### Run Program
 ```
 java11 -jar target/aoc.jar "input|answer|solve" "year" "day" [level] [answer]
+```
+
+## Typescript
+
+### Build & Run
+```
+npm start "year" "day"
 ```
 
 ## Important
