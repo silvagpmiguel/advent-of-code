@@ -1,19 +1,18 @@
-import Day1 from './day/Day1'
-import { readDayInputAsNumberArray } from './parse/input'
+import { readDayInputAsNumberArray, readDayInputAsStringArray } from './parse/input'
 import { exit } from 'process'
 import { Day } from './day/Day'
+import Day1 from './day/Day1'
+import Day2 from './day/Day2';
 
-interface Days2021 {
-  day1: Day
-}
-
+type KnownDays = 'day1' | 'day2';
 interface YearDays {
-  year2021: Days2021
+  year2021: Record<KnownDays, Day>
 }
 
-const DAYS: Readonly<YearDays | any> = {
+const PUZZLES: Readonly<YearDays | any> = {
   year2021: {
     day1: Day1(readDayInputAsNumberArray(1), 3),
+    day2: Day2(readDayInputAsStringArray(2))
   },
 }
 
@@ -26,11 +25,11 @@ if (process.argv.length != 4) {
 const YEAR: Readonly<string> = `year${process.argv[2]}`
 const DAY: Readonly<string> = `day${process.argv[3]}`
 
-if (!(YEAR in DAYS && DAY in DAYS[YEAR])) {
+if (!(YEAR in PUZZLES && DAY in PUZZLES[YEAR])) {
   console.error(`Error, unfortunately there is no implementation for ${YEAR} - ${DAY} :(`)
   exit()
 }
 
 console.log(`Advent of Code ${YEAR} - ${DAY}`)
-console.log(`part1: ${DAYS[YEAR][DAY].part1()}`)
-console.log(`part2: ${DAYS[YEAR][DAY].part2()}`)
+console.log(`part1: ${PUZZLES[YEAR][DAY].part1()}`)
+console.log(`part2: ${PUZZLES[YEAR][DAY].part2()}`)

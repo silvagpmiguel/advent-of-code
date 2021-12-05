@@ -1,6 +1,5 @@
 import { NumberArrayInputParts } from '../parse/input'
 import { Day } from './Day'
-import { sumBetween } from './utils/array'
 
 export default function Day1(inputs: NumberArrayInputParts, slidingMeasurement: number): Day {
   const p1Input: number[] = inputs.part1
@@ -23,5 +22,5 @@ export default function Day1(inputs: NumberArrayInputParts, slidingMeasurement: 
       }
       return acc
     },
-  }
+  } 
 }
