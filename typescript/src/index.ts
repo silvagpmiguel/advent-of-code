@@ -3,8 +3,9 @@ import { exit } from 'process'
 import { Day } from './day/Day'
 import Day1 from './day/Day1'
 import Day2 from './day/Day2';
+import Day3 from './day/Day3';
 
-type KnownDays = 'day1' | 'day2';
+type KnownDays = 'day1' | 'day2' | 'day3';
 interface YearDays {
   year2021: Record<KnownDays, Day>
 }
@@ -12,7 +13,8 @@ interface YearDays {
 const PUZZLES: Readonly<YearDays | any> = {
   year2021: {
     day1: Day1(readDayInputAsNumberArray(1), 3),
-    day2: Day2(readDayInputAsStringArray(2))
+    day2: Day2(readDayInputAsStringArray(2)),
+    day3: Day3(readDayInputAsStringArray(3))
   },
 }
 
