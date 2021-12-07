@@ -2,11 +2,12 @@ import { readDayInputAsNumberArray, readDayInputAsStringArray } from './parse/in
 import { exit } from 'process'
 import { Day } from './day/Day'
 import Day1 from './day/Day1'
-import Day2 from './day/Day2';
-import Day3 from './day/Day3';
-import Day4 from './day/Day4';
+import Day2 from './day/Day2'
+import Day3 from './day/Day3'
+import Day4 from './day/Day4'
+import Day5 from './day/Day5'
 
-type KnownDays = 'day1' | 'day2' | 'day3' | 'day4';
+type KnownDays = 'day1' | 'day2' | 'day3' | 'day4' | 'day5'
 interface YearDays {
   year2021: Record<KnownDays, Day>
 }
@@ -16,7 +17,8 @@ const PUZZLES: Readonly<YearDays | any> = {
     day1: Day1(readDayInputAsNumberArray(1), 3),
     day2: Day2(readDayInputAsStringArray(2)),
     day3: Day3(readDayInputAsStringArray(3)),
-    day4: Day4(readDayInputAsStringArray(4), 5)
+    day4: Day4(readDayInputAsStringArray(4), 5),
+    day5: Day5(readDayInputAsStringArray(5))
   },
 }
 
