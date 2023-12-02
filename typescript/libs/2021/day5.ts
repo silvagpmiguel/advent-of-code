@@ -1,5 +1,4 @@
-import { StringArrayInputParts } from '../parse/input'
-import { Day } from './Day'
+import { Day, StringArrayInputParts } from '@advent/utils'
 
 interface Coord {
   x: number
@@ -8,14 +7,15 @@ interface Coord {
 type Counter = number
 type Diagram = Map<string, Counter>
 
-export default function Day5(inputs: StringArrayInputParts): Day {
+export function day5_2021(inputs: StringArrayInputParts): Day {
   const p1Input: string[] = inputs.part1
   const p2Input: string[] = inputs.part2
   const getLineSegment = (first: Coord, second: Coord): Array<Coord> => {
     const lineSegment: Array<Coord> = []
     const incX = first.x == second.x ? 0 : first.x > second.x ? -1 : 1
     const incY = first.y == second.y ? 0 : first.y > second.y ? -1 : 1
-    let coordX = first.x, coordY = first.y
+    let coordX = first.x,
+      coordY = first.y
     for (; coordX != second.x || coordY != second.y; coordX += incX, coordY += incY) {
       lineSegment.push({ x: coordX, y: coordY })
     }

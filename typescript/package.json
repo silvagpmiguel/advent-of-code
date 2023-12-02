@@ -1,18 +1,18 @@
 {
   "name": "typescript",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "Typescript Advent of Code",
   "scripts": {
-    "start": "nodemon"
+    "start": "ts-node src/index.ts"
   },
   "keywords": [],
-  "author": "",
+  "author": "Miguel Silva",
   "license": "ISC",
   "devDependencies": {
-    "@types/node": "^16.11.11",
-    "nodemon": "^2.0.15",
-    "ts-node": "^10.4.0",
-    "typescript": "^4.5.2"
+    "@types/node": "^16.18.66",
+    "ts-node": "^10.9.1",
+    "ts-node-dev": "^2.0.0",
+    "tsconfig-paths": "^4.2.0",
+    "typescript": "^5.3.2"
   }
 }

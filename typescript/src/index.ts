@@ -1,45 +1,9 @@
-import { readDayInputAsNumberArray, readDayInputAsStringArray } from './parse/input'
-import { exit } from 'process'
-import { Day } from './day/Day'
-import Day1 from './day/Day1'
-import Day2 from './day/Day2'
-import Day3 from './day/Day3'
-import Day4 from './day/Day4'
-import Day5 from './day/Day5'
-import Day6 from './day/Day6'
-import Day7 from './day/Day7'
+import { AdventRunner } from '@advent/core'
 
-type KnownDays = 'day1' | 'day2' | 'day3' | 'day4' | 'day5' | 'day6' | 'day7'
-interface YearDays {
-  year2021: Record<KnownDays, Day>
+if (process.argv.length == 4) {
+  const year = process.argv[2]
+  const day = process.argv[3]
+  new AdventRunner(year, day).run()
+} else {
+  console.error('Error, insert advent of code year and day!\nnpm start <year> <day>')
 }
-
-const PUZZLES: Readonly<YearDays | any> = {
-  year2021: {
-    day1: Day1(readDayInputAsNumberArray(1), 3),
-    day2: Day2(readDayInputAsStringArray(2)),
-    day3: Day3(readDayInputAsStringArray(3)),
-    day4: Day4(readDayInputAsStringArray(4), 5),
-    day5: Day5(readDayInputAsStringArray(5)),
-    day6: Day6(readDayInputAsNumberArray(6, ','), 6, 8, {part1: 80, part2: 256}),
-    day7: Day7(readDayInputAsNumberArray(7, ','))
-  },
-}
-
-if (process.argv.length != 4) {
-  console.error('Error, insert advent of code year and day!')
-  console.error('npm start <year> <day>')
-  exit()
-}
-
-const YEAR: Readonly<string> = `year${process.argv[2]}`
-const DAY: Readonly<string> = `day${process.argv[3]}`
-
-if (!(YEAR in PUZZLES && DAY in PUZZLES[YEAR])) {
-  console.error(`Error, unfortunately there is no implementation for ${YEAR} - ${DAY} :(`)
-  exit()
-}
-
-console.log(`Advent of Code ${YEAR} - ${DAY}`)
-console.log(`part1: ${PUZZLES[YEAR][DAY].part1()}`)
-console.log(`part2: ${PUZZLES[YEAR][DAY].part2()}`)

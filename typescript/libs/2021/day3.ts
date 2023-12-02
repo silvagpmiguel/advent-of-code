@@ -1,7 +1,6 @@
-import { StringArrayInputParts } from '../parse/input'
-import { Day } from './Day'
+import { Day, StringArrayInputParts } from '@advent/utils'
 
-export default function Day3(inputs: StringArrayInputParts): Day {
+export function day3_2021(inputs: StringArrayInputParts): Day {
   const p1Input: string[] = inputs.part1
   const p2Input: string[] = inputs.part2
   const computeDecimalRating = (gamma: string, epsilonRate: string) => parseInt(gamma, 2) * parseInt(epsilonRate, 2)
