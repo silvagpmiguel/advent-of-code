@@ -14,7 +14,7 @@ export class AdventRunner {
       '7': day7_2021(readDayInputAsNumberArray(7, 2021, ',')),
     },
     '2023': {
-      '1': day1_2023(readDayInputAsNumberArray(1, 2023), 1),
+      '1': day1_2023(readDayInputAsStringArray(1, 2023)),
     },
   }
 
