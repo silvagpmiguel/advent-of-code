@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Typescript Advent of Code",
   "scripts": {
-    "start": "ts-node src/index.ts"
+    "start": "NODE_OPTIONS='--max-old-space-size=4096' ts-node --transpileOnly src/index.ts"
   },
   "keywords": [],
   "author": "Miguel Silva",

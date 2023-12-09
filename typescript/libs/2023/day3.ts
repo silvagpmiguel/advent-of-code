@@ -1,4 +1,4 @@
-import { StringArrayInputParts, Day } from '@advent/utils'
+import { StringArrayInputParts, Day, isNumber, isAsterisk, hasSymbol } from '@advent/utils'
 
 export const day3_2023 = ({ part1, part2 }: StringArrayInputParts): Day => ({
   part1: (): number => {
@@ -62,7 +62,7 @@ const hasAdjacentSymbols = (
   j: number,
   row_len: number,
   col_len: number,
-  is = isSymbol
+  is = hasSymbol
 ): boolean => {
   return (
     (i + 1 < row_len && is(input[i + 1][j])) ||
@@ -92,6 +92,3 @@ const getAdjacentSymbolPos = (
   else if (i - 1 >= 0 && j + 1 < col_len && is(input[i - 1][j + 1])) return `${i - 1}, ${j + 1}`
   else if (i - 1 >= 0 && j - 1 >= 0 && is(input[i - 1][j - 1])) return `${i - 1}, ${j - 1}`
 }
-const isNumber = (str: string) => ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'].includes(str)
-const isSymbol = (str: string) => /[^.\w]/g.test(str)
-const isAsterisk = (str: string) => str == '*'
