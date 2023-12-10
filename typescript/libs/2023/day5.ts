@@ -42,7 +42,6 @@ const computeLocation2 = ({ seeds, groups }: Almanac): number => {
   let minLocation = Number.MAX_SAFE_INTEGER
   return seeds.reduce((_: number, initialSeed: number, index: number) => {
     if (index % 2 != 0) {
-      console.log(`compute location: ${seeds[index - 1]}, length: ${initialSeed}`)
       applyToRange(seeds[index - 1], initialSeed, (seed) => {
         const value = mapSeed(seed, groups)
         if (value < minLocation) {

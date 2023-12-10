@@ -3,3 +3,5 @@ export const isNumber = (str: string) => NUMBERS.includes(str)
 export const isAsterisk = (str: string) => str == '*'
 export const hasSymbol = (str: string) => /[^.\w]/g.test(str)
 export const hasNumber = (str: string) => /\d+/g.test(str)
+export const countOccurrences = (str: string, substr: string): number =>
+  (str?.match(new RegExp(substr, 'g')) ?? []).length
