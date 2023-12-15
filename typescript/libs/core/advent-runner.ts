@@ -1,6 +1,6 @@
 import { Day, readDayInputAsNumberArray, readDayInputAsStringArray } from '@advent/utils'
 import { day1_2021, day2_2021, day3_2021, day4_2021, day5_2021, day6_2021, day7_2021 } from '@advent/2021'
-import { day1_2023, day2_2023, day3_2023, day4_2023, day5_2023, day6_2023, day7_2023 } from '@advent/2023'
+import { day1_2023, day2_2023, day3_2023, day4_2023, day5_2023, day6_2023, day7_2023, day8_2023 } from '@advent/2023'
 
 export class AdventRunner {
   private readonly puzzles: Record<string, Record<string, Day>> = {
@@ -21,6 +21,7 @@ export class AdventRunner {
       '5': day5_2023(readDayInputAsStringArray(5, 2023)),
       '6': day6_2023(readDayInputAsStringArray(6, 2023)),
       '7': day7_2023(readDayInputAsStringArray(7, 2023)),
+      '8': day8_2023(readDayInputAsStringArray(8, 2023), { start: 'AAA', end: 'ZZZ' }, { start: 'A', end: 'Z' }),
     },
   }
 

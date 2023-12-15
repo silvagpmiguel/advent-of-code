@@ -11,9 +11,9 @@ else
     echo "
 import { StringArrayInputParts, Day } from '@advent/utils'
 
-export const day$DAY_$YEAR = ({ part1, part2 }: StringArrayInputParts): Day => ({
+export const day${DAY}_${YEAR} = ({ part1, part2 }: StringArrayInputParts): Day => ({
   part1: (): number => 0,
   part2: (): number => 0,
 })
-" > ./libs/$YEAR/day$DAY.ts
+" > ./libs/${YEAR}/day${DAY}.ts
 fi
